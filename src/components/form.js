@@ -17,11 +17,16 @@ const Form = ({ register, errors, validation, handleSubmit, onSubmit }) => {
             {...register('name', {
               required: true,
               pattern: validation,
+              validate: {
+                isEmpty: (str) => !!str.trim(),
+              },
             })}
           />
 
           <div className="input-error">
-            {errors.name?.type === 'required' && 'Name is required'}
+            {(errors.name?.type === 'required' ||
+              errors.name?.type === 'isEmpty') &&
+              'Name is required'}
             {errors.name?.type === 'pattern' &&
               'Use only latin letters, numbers and underscores'}
           </div>
@@ -34,10 +39,15 @@ const Form = ({ register, errors, validation, handleSubmit, onSubmit }) => {
             rows="3"
             {...register('message', {
               required: true,
+              validate: {
+                isEmpty: (str) => !!str.trim(),
+              },
             })}
           ></textarea>
           <div className="input-error">
-            {errors.message?.type === 'required' && 'Message is required'}
+            {(errors.message?.type === 'required' ||
+              errors.name?.type === 'isEmpty') &&
+              'Name is required'}
           </div>
         </div>
         <div className="col-xl-2 col-sm-12 text-center mb-3">
